@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>错误页面</title>
+    <style>
+        @font-face {
+            font-family: 'mxblack';
+            src: url('mxblack.ttf') format('truetype');
+        }
+        @font-face {
+            font-family: 'mxdx';
+            src: url('mxdx.ttf') format('truetype');
+        }
+
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'mxdx', sans-serif;
+        }
+
+        .background {
+            background: url('koharu.jpg') no-repeat center center fixed;
+            background-size: cover;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white;
+            text-align: center;
+        }
+
+        .title {
+            font-family: 'mxblack', sans-serif;
+            font-size: 4em;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .message {
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="overlay">
+        <div class="title">哎呀！</div>
+        <div class="message">错误码: 404 Not Found<br>
+            很抱歉，该页内容可能还没做出来、不存在、战胜了自己。<br>
+            请耐心等待一段时间，或许它就会长出来。<br>
+            请不要急哦！
+        </div>
+    </div>
+</body>
+</html>
