@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>エア本的小网站</title>
+    <style>
+        @font-face {
+            font-family: 'MS Black';
+            src: url('msblack.ttf') format('truetype');
+        }
+        @font-face {
+            font-family: 'Main';
+            src: url('main.ttf') format('truetype');
+        }
+        @font-face {
+            font-family: 'MS DX';
+            src: url('msdx.ttf') format('truetype');
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background: url('noa.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'MS DX', sans-serif;
+            color: white;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .blur {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(10px);
+            z-index: 0;
+        }
+        .content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            animation: fadeIn 2s ease-in-out;
+            padding: 50px;
+            height: 100vh;
+            overflow-y: auto;
+            box-sizing: border-box;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .title {
+            font-family: 'MS Black', sans-serif;
+            font-size: 2em;
+            margin-top: 50px;
+            animation: fadeInDown 1s ease-in-out;
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .divider {
+            position: relative;
+            margin: 20px auto;
+            width: 80%;
+            height: 2px;
+            background: white;
+            animation: extendLine 200ms forwards;
+            animation-delay: 1s;
+        }
+        @keyframes extendLine {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        .box {
+            position: relative;
+            margin: 50px auto;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            width: 80%;
+            animation: fadeInUp 1s ease-in-out;
+            animation-delay: 1.5s;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .box-title {
+            font-family: 'Main', sans-serif;
+            font-size: 1.5em;
+        }
+        .box-description {
+            font-size: 1em;
+            animation: fadeInText 2s ease-in-out;
+            animation-delay: 2s;
+        }
+        @keyframes fadeInText {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .sections {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+        .section {
+            cursor: pointer;
+            margin: 10px 0;
+            text-align: center;
+        }
+        .section:hover {
+            text-decoration: underline;
+        }
+        .section-title {
+            font-family: 'MS Black', sans-serif;
+        }
+        .footer {
+            margin-top: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 10px;
+            font-family: 'MS DX', sans-serif;
+        }
+        #weather {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1em;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('https://ipapi.co/json/')
+                .then(response => response.json())
+                .then(data => {
+                    const city = data.city;
+                    fetch(`http://wthrcdn.etouch.cn/WeatherApi?city=${city}`)
+                        .then(response => response.text())
+                        .then(data => {
+                            const parser = new DOMParser();
+                            const xmlDoc = parser.parseFromString(data, "application/xml");
+                            const weather = xmlDoc.querySelector("wendu").textContent;
+                            const humidity = xmlDoc.querySelector("shidu").textContent;
+                            document.getElementById("weather").innerHTML = `City: ${city}, Temp: ${weather}°C, Humidity: ${humidity}`;
+                        });
+                });
+        });
+    </script>
+</head>
+<body>
+    <div class="blur"></div>
+    <div class="content">
+        <div class="title">エア本的小网站</div>
+        <div class="divider"></div>
+        <div class="box">
+            <div class="box-title">探索发现</div>
+            <div class="box-description">一个初中生在空闲时间做出来的小玩具</div>
+        </div>
+        <div class="sections">
+            <div class="section" onclick="location.href='koharu-blog.github.io/about.html/'">
+                <div class="section-title">关于</div>
+                <div>此网站的简介，主要介绍干嘛用和主要内容</div>
+            </div>
+            <div class="section" onclick="location.href='koharu-blog.github.io/mainpage.html/'">
+                <div class="section-title">主要功能</div>
+                <div>本网站大部分内容都在这儿</div>
+            </div>
+            <div class="section" onclick="location.href='koharu-blog.github.io/rxx.html/'">
+                <div class="section-title">豪堪の东西</div>
+                <div>🤓👆</div>
+            </div>
+            <div class="section" onclick="location.href='koharu-blog.github.io/news/'">
+                <div class="section-title">时事新闻</div>
+                <div>查看今天世界各地的大事(该功能测试中，如有异常属于正常现象)</div>
+            </div>
+            <div class="section" onclick="location.href='koharu-blog.github.io/sample.html/'">
+                <div class="section-title">例区</div>
+                <div>比较杂的区域，里面的东西最多也最杂乱</div>
+            </div>
+        </div>
+        <div class="footer">如遇到bug请反馈站长:Hanaoka_Yuzu@aliyun.com<br>此站始建于2024-6-15 02:12</div>
+    </div>
+    <div id="weather"></div>
+</body>
+</html>
