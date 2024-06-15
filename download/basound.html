@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Download</title>
+    <script>
+        function initiateDownload() {
+            const link = document.createElement('a');
+            link.href = 'archive.zip'; // 这里替换为实际文件路径
+            link.download = 'archive.zip';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.close();
+        }
+
+        window.onload = initiateDownload;
+    </script>
+</head>
+<body>
+</body>
+</html>
