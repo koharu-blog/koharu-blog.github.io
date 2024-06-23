@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在线PixivID图片查询</title>
+    <style>
+        @font-face {
+            font-family: 'mxblack';
+            src: url('mxblack.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'msdx';
+            src: url('msdx.ttf') format('truetype');
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: url('pic.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'msdx', sans-serif;
+            color: white;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: -1;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .title {
+            font-family: 'mxblack', sans-serif;
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .divider {
+            border: 1px solid white;
+            margin: 20px 0;
+        }
+
+        .input-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .input-field {
+            padding: 10px;
+            border: 2px solid white;
+            border-radius: 50px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            margin-right: 10px;
+            flex-grow: 1;
+        }
+
+        .button {
+            padding: 10px 20px;
+            background: white;
+            color: black;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+
+        .format-options {
+            margin: 10px 0;
+        }
+
+        .format-options input {
+            margin-right: 5px;
+        }
+
+        .result {
+            margin-top: 20px;
+        }
+
+        .result img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="content">
+        <div class="title">在线PixivID图片查询</div>
+        <div class="subtitle">本网页提供在线PID图片查询服务<br>
+        使用教程：在下面的方框中填写您所持有的PID（如108438387），点击查询即可。<br>
+        对于一个PID有多张图片的，在PID后面加上-即可。<br>
+        比如我要查询PID为108438387的作品的第二张图片，那么在搜索框中填写108438387-2即可。<br>
+        如查询无结果，可能是图片格式错误、作品失效、无查看权限、api挂了（如出现这种情况请反馈站长）
+        </div>
+        <div class="divider"></div>
+        <div class="input-container">
+            <input type="text" class="input-field" placeholder="在此填写您的PID" id="pid-input">
+            <button class="button" onclick="searchImage()">SEARCH NOW!</button>
+        </div>
+        <div class="format-options">
+            <label>图片格式：</label>
+            <input type="radio" name="format" value="png" checked> png
+            <input type="radio" name="format" value="jpg"> jpg
+            <input type="radio" name="format" value="gif"> gif
+        </div>
+        <div class="divider"></div>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function searchImage() {
+            const pid = document.getElementById('pid-input').value;
+            const format = document.querySelector('input[name="format"]:checked').value;
+            const imageUrl = `https://pixiv.nl/${pid}.${format}`;
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `<img src="${imageUrl}" alt="查询结果">`;
+        }
+    </script>
+</body>
+</html>
